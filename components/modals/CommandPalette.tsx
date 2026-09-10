@@ -39,8 +39,6 @@ export function CommandPalette() {
     setSelectedIndex(0);
   }, [query]);
 
-  if (!isCommandPaletteOpen) return null;
-
   const actions = [
     {
       id: 'act_add_tx',
@@ -250,6 +248,8 @@ export function CommandPalette() {
       setIsCommandPaletteOpen(false);
     }
   };
+
+  if (!isCommandPaletteOpen) return null;
 
   return (
     <div

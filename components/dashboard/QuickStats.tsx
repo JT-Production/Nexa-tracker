@@ -4,6 +4,8 @@ import React from "react";
 import { useNexa } from "@/context/NexaContext";
 import { formatMoney } from "@/lib/money";
 
+type ChangeType = "positive" | "negative" | "neutral";
+
 export function QuickStats() {
   const {
     totalIncomeSmallestUnit,
@@ -13,7 +15,13 @@ export function QuickStats() {
     homeCurrency,
   } = useNexa();
 
-  const stats = [
+  const stats: Array<{
+    title: string;
+    value: string;
+    change: string;
+    changeType: ChangeType;
+    subtext: string;
+  }> = [
     {
       title: "Monthly Cash Inflow",
       value: formatMoney(totalIncomeSmallestUnit, homeCurrency),
