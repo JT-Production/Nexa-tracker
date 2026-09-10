@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNexa } from '@/context/NexaContext';
 import { CURRENCY_METADATA, convertCurrencySmallestUnit, formatMoney, toSmallestUnit } from '@/lib/money';
 import { CurrencyCode } from '@/types';
-import { ArrowRightLeft, Sparkles } from 'lucide-react';
+import { ArrowRightLeft } from 'lucide-react';
 
 export function QuickExchangeCalc() {
   const { fxRates, homeCurrency } = useNexa();
@@ -30,36 +30,36 @@ export function QuickExchangeCalc() {
   );
 
   return (
-    <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
+    <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-bold text-white tracking-tight">Live FX Calculator</h3>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 font-semibold border border-indigo-500/30">
-            Real-time Spot
+          <h3 className="text-sm font-bold text-slate-900 tracking-tight">FX Converter</h3>
+          <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 font-medium">
+            Spot rate
           </span>
         </div>
-        <span className="text-[10px] text-slate-500 font-mono">No spread markup</span>
+        <span className="text-[11px] text-slate-500 font-medium">Mid-market rate</span>
       </div>
 
       <div className="space-y-3">
         {/* From Amount */}
         <div>
-          <label className="block text-[11px] font-medium text-slate-400 mb-1">You Convert</label>
+          <label className="block text-[11px] font-medium text-slate-500 mb-1">You convert</label>
           <div className="flex gap-2">
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="flex-1 bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-sm font-bold font-mono text-white focus:outline-none focus:border-indigo-500"
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold font-mono text-slate-900 focus:outline-none focus:border-slate-400 focus:bg-white"
             />
             <select
               value={fromCurrency}
               onChange={(e) => setFromCurrency(e.target.value as CurrencyCode)}
-              className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none cursor-pointer"
             >
               {currencies.map((c) => (
-                <option key={c} value={c} className="bg-slate-900">
+                <option key={c} value={c} className="bg-white text-slate-900">
                   {c} ({CURRENCY_METADATA[c]?.symbol})
                 </option>
               ))}
@@ -71,7 +71,7 @@ export function QuickExchangeCalc() {
         <div className="flex justify-center">
           <button
             onClick={handleSwap}
-            className="p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
             title="Swap currencies"
           >
             <ArrowRightLeft className="w-3.5 h-3.5" />
@@ -80,18 +80,18 @@ export function QuickExchangeCalc() {
 
         {/* To Amount (Result) */}
         <div>
-          <label className="block text-[11px] font-medium text-slate-400 mb-1">You Receive (Estimated)</label>
+          <label className="block text-[11px] font-medium text-slate-500 mb-1">Estimated received</label>
           <div className="flex gap-2 items-center">
-            <div className="flex-1 bg-slate-950/90 border border-indigo-500/30 rounded-xl px-3 py-2 text-sm font-black font-mono text-emerald-400">
+            <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold font-mono text-slate-900">
               {formatMoney(convertedSmallest, toCurrency)}
             </div>
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value as CurrencyCode)}
-              className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-900 focus:outline-none cursor-pointer"
             >
               {currencies.map((c) => (
-                <option key={c} value={c} className="bg-slate-900">
+                <option key={c} value={c} className="bg-white text-slate-900">
                   {c} ({CURRENCY_METADATA[c]?.symbol})
                 </option>
               ))}
@@ -99,10 +99,10 @@ export function QuickExchangeCalc() {
           </div>
         </div>
 
-        <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center justify-between font-mono">
           <span>
             1 {fromCurrency} ={' '}
-            <strong className="text-white">
+            <strong className="text-slate-900">
               {(
                 convertCurrencySmallestUnit(
                   toSmallestUnit(1, fromCurrency),
@@ -114,7 +114,7 @@ export function QuickExchangeCalc() {
               {toCurrency}
             </strong>
           </span>
-          <span className="text-emerald-400">0.0% fee</span>
+          <span className="text-slate-500 font-sans font-medium">No markup</span>
         </div>
       </div>
     </div>

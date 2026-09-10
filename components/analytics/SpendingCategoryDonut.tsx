@@ -48,16 +48,16 @@ export function SpendingCategoryDonut() {
     .sort((a, b) => b.value - a.value);
 
   return (
-    <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
+    <div className="p-6 rounded-2xl bg-white border border-black/10 shadow-xs space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-400">
+          <div className="p-1.5 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-200">
             <PieIcon className="w-4 h-4" />
           </div>
-          <h3 className="text-sm font-bold text-white tracking-tight">Spending by Category</h3>
+          <h3 className="text-sm font-bold text-slate-900 tracking-tight">Spending by Category</h3>
         </div>
-        <span className="text-xs font-mono text-slate-400">
-          Total: <strong className="text-white">{formatMoney(totalExpense, homeCurrency)}</strong>
+        <span className="text-xs font-mono text-slate-500">
+          Total: <strong className="text-slate-900">{formatMoney(totalExpense, homeCurrency)}</strong>
         </span>
       </div>
 
@@ -80,7 +80,7 @@ export function SpendingCategoryDonut() {
                   <Cell
                     key={`cell-${index}`}
                     fill={PALETTE[index % PALETTE.length]}
-                    stroke="#0F172A"
+                    stroke="#FFFFFF"
                     strokeWidth={2}
                   />
                 ))}
@@ -90,9 +90,9 @@ export function SpendingCategoryDonut() {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs shadow-2xl text-white">
+                      <div className="p-2.5 bg-white border border-slate-200 rounded-xl text-xs shadow-xl text-slate-900">
                         <p className="font-bold">{data.name}</p>
-                        <p className="text-emerald-400 font-mono mt-0.5">
+                        <p className="text-emerald-600 font-mono mt-0.5">
                           {formatMoney(data.smallestUnit, homeCurrency)} ({data.percentage}%)
                         </p>
                       </div>
@@ -107,7 +107,7 @@ export function SpendingCategoryDonut() {
           {/* Center text in donut */}
           <div className="absolute flex flex-col items-center justify-center pointer-events-none">
             <span className="text-[10px] text-slate-400 font-medium">Top Category</span>
-            <span className="text-xs font-bold text-white truncate max-w-[90px]">
+            <span className="text-xs font-bold text-slate-900 truncate max-w-[90px]">
               {chartData[0]?.name || 'N/A'}
             </span>
           </div>
@@ -123,13 +123,13 @@ export function SpendingCategoryDonut() {
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: PALETTE[idx % PALETTE.length] }}
                   />
-                  <span className="text-slate-300 font-medium">{item.name}</span>
+                  <span className="text-slate-700 font-medium">{item.name}</span>
                 </div>
-                <span className="font-mono text-slate-400 text-[11px]">
+                <span className="font-mono text-slate-500 text-[11px]">
                   {formatMoney(item.smallestUnit, homeCurrency)} ({item.percentage}%)
                 </span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                 <div
                   className="h-full rounded-full"
                   style={{

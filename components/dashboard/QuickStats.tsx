@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useNexa } from '@/context/NexaContext';
-import { formatMoney } from '@/lib/money';
-import { ArrowDownLeft, ArrowUpRight, PiggyBank, Hourglass } from 'lucide-react';
+import React from "react";
+import { useNexa } from "@/context/NexaContext";
+import { formatMoney } from "@/lib/money";
 
 export function QuickStats() {
   const {
@@ -16,79 +15,67 @@ export function QuickStats() {
 
   const stats = [
     {
-      title: 'Monthly Cash Inflow',
+      title: "Monthly Cash Inflow",
       value: formatMoney(totalIncomeSmallestUnit, homeCurrency),
-      change: '+18.5%',
-      isPositive: true,
-      subtext: 'Client retainers & payouts',
-      icon: ArrowUpRight,
-      color: 'text-emerald-400',
-      bgGlow: 'from-emerald-500/10 to-transparent',
-      borderColor: 'border-emerald-500/20',
+      change: "+18.5%",
+      changeType: "positive" as const,
+      subtext: "Client retainers & payouts",
     },
     {
-      title: 'Monthly Burn / Spend',
+      title: "Monthly Burn / Spend",
       value: formatMoney(totalExpenseSmallestUnit, homeCurrency),
-      change: '-4.2%',
-      isPositive: true,
-      subtext: 'Software, servers & living',
-      icon: ArrowDownLeft,
-      color: 'text-rose-400',
-      bgGlow: 'from-rose-500/10 to-transparent',
-      borderColor: 'border-rose-500/20',
+      change: "-4.2%",
+      changeType: "positive" as const,
+      subtext: "Software, servers & living",
     },
     {
-      title: 'Net Savings Rate',
+      title: "Net Savings Rate",
       value: `${netSavingsRatePercent}%`,
-      change: '+6.1%',
-      isPositive: true,
-      subtext: 'Target is 50%+',
-      icon: PiggyBank,
-      color: 'text-indigo-400',
-      bgGlow: 'from-indigo-500/10 to-transparent',
-      borderColor: 'border-indigo-500/20',
+      change: "+6.1%",
+      changeType: "positive" as const,
+      subtext: "Target is 50%+",
     },
     {
-      title: 'Estimated Runway',
+      title: "Estimated Runway",
       value: `${runwayMonths} mo`,
-      change: 'Safe zone',
-      isPositive: true,
-      subtext: 'At current burn rate',
-      icon: Hourglass,
-      color: 'text-amber-400',
-      bgGlow: 'from-amber-500/10 to-transparent',
-      borderColor: 'border-amber-500/20',
+      change: "Safe zone",
+      changeType: "neutral" as const,
+      subtext: "At current burn rate",
     },
   ];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {stats.map((stat, idx) => {
-        const Icon = stat.icon;
-        return (
-          <div
-            key={idx}
-            className={`p-5 rounded-2xl glass-card border ${stat.borderColor} bg-gradient-to-br ${stat.bgGlow} hover:border-slate-600 transition-all flex flex-col justify-between gap-4`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-400">{stat.title}</span>
-              <div className={`p-2 rounded-xl bg-slate-800/80 ${stat.color} shrink-0`}>
-                <Icon className="w-4 h-4" />
-              </div>
-            </div>
+      {stats.map((stat, idx) => (
+        <div
+          key={idx}
+          className="p-5 rounded-2xl border border-slate-200 bg-white shadow-2xs flex flex-col justify-between gap-3"
+        >
+          <span className="text-xs font-semibold text-slate-500">
+            {stat.title}
+          </span>
 
-            <div className="flex flex-col gap-2">
-              <p className="text-2xl font-bold font-sans text-white tracking-tight leading-none">{stat.value}</p>
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/60 text-[11px]">
-                <span className="text-slate-400">{stat.subtext}</span>
-                <span className={`font-semibold ${stat.isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
-                  {stat.change}
-                </span>
-              </div>
+          <div className="flex flex-col gap-2">
+            <p className="text-2xl sm:text-3xl font-bold font-sans text-slate-950 tracking-tight leading-none">
+              {stat.value}
+            </p>
+            <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px]">
+              <span className="text-slate-500">{stat.subtext}</span>
+              <span
+                className={`font-semibold ${
+                  stat.changeType === "positive"
+                    ? "text-emerald-700"
+                    : stat.changeType === "negative"
+                    ? "text-rose-700"
+                    : "text-slate-700"
+                }`}
+              >
+                {stat.change}
+              </span>
             </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

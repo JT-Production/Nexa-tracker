@@ -41,6 +41,8 @@ interface NexaContextType {
   setIsAIModalOpen: (open: boolean) => void;
   isCommandPaletteOpen: boolean;
   setIsCommandPaletteOpen: (open: boolean) => void;
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
   
   // AI Queries
   aiMessages: AIQueryMessage[];
@@ -81,13 +83,14 @@ export function NexaProvider({ children }: { children: React.ReactNode }) {
   const [isAddTxModalOpen, setIsAddTxModalOpen] = useState(false);
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // AI Messages state
+  // Messages state
   const [aiMessages, setAiMessages] = useState<AIQueryMessage[]>([
     {
       id: 'msg_welcome',
       sender: 'assistant',
-      text: "Hello Alex! I am Nexa AI, your multi-currency financial co-pilot. You can query your finances across USD, EUR, GBP, NGN, and Crypto in plain English. How can I help you today?",
+      text: "Hello Alex. Ask any question about your multi-currency cash flow, category spend, runway, or net worth.",
       timestamp: new Date().toISOString(),
       suggestedFollowUps: [
         "What is my total net worth right now?",
@@ -478,6 +481,8 @@ export function NexaProvider({ children }: { children: React.ReactNode }) {
         setIsAIModalOpen,
         isCommandPaletteOpen,
         setIsCommandPaletteOpen,
+        isMobileMenuOpen,
+        setIsMobileMenuOpen,
         aiMessages,
         isAILoading,
         askAI,

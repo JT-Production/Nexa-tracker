@@ -5,19 +5,19 @@
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-bg-base: #080B11;
-  --color-bg-surface: #0F172A;
-  --color-bg-elevated: #1E293B;
-  --color-border: #1E293B;
-  --color-border-subtle: #334155;
+  --color-bg-base: #FFFFFF;
+  --color-bg-surface: #F8FAFC;
+  --color-bg-elevated: #F1F5F9;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.04);
 }
 
 html,
 body {
   min-height: 100%;
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  background-color: #080B11;
-  color: #F8FAFC;
+  background-color: #FFFFFF;
+  color: #0F172A;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,29 +29,31 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #94A3B8;
 }
 
-/* Glassmorphism utility classes */
+/* Glassmorphism utility classes for light mode */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.06);
 }
 
 .glass-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
+  background: #FFFFFF;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
 }
 
 .glass-card-hover {
@@ -60,28 +62,28 @@ body {
 .glass-card-hover:hover {
   border-color: rgba(99, 102, 241, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08), 0 0 20px -5px rgba(99, 102, 241, 0.12);
 }
 
 /* Glow effects */
 .glow-emerald {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.2);
 }
 .glow-indigo {
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.2);
 }
 
-/* Recharts overrides for clean dark fintech mode */
+/* Recharts overrides for clean light fintech mode */
 .recharts-wrapper {
   overflow: visible !important;
 }
 .recharts-cartesian-axis-tick-value {
   font-family: var(--font-sans, sans-serif) !important;
   font-size: 11px !important;
-  fill: #94A3B8 !important;
+  fill: #64748B !important;
 }
 .recharts-cartesian-grid-line {
-  stroke: rgba(255, 255, 255, 0.05) !important;
+  stroke: rgba(0, 0, 0, 0.06) !important;
 }
 .recharts-tooltip-wrapper {
   outline: none !important;

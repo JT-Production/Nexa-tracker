@@ -37,21 +37,21 @@ export function CurrencyExposureChart() {
     .sort((a, b) => b.percentage - a.percentage);
 
   return (
-    <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
+    <div className="p-6 rounded-2xl bg-white border border-black/10 shadow-xs space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+          <div className="p-1.5 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-200">
             <Globe2 className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white tracking-tight">FX Currency Exposure</h3>
-            <p className="text-xs text-slate-400">Portfolio distribution by asset denomination</p>
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight">FX Currency Exposure</h3>
+            <p className="text-xs text-slate-500">Portfolio distribution by asset denomination</p>
           </div>
         </div>
       </div>
 
       {/* Multi-segmented progress bar */}
-      <div className="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex">
+      <div className="w-full h-3 rounded-full bg-slate-100 overflow-hidden flex">
         {exposureList.map((item, idx) => {
           const colors = ['#10B981', '#6366F1', '#F59E0B', '#EC4899', '#06B6D4', '#8B5CF6'];
           return (
@@ -75,7 +75,7 @@ export function CurrencyExposureChart() {
           return (
             <div
               key={item.currency}
-              className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 space-y-1"
+              className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
@@ -83,11 +83,11 @@ export function CurrencyExposureChart() {
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: colors[idx % colors.length] }}
                   />
-                  <span className="text-xs font-bold text-white font-mono">{item.currency}</span>
+                  <span className="text-xs font-bold text-slate-900 font-mono">{item.currency}</span>
                 </div>
-                <span className="text-xs font-bold text-indigo-300">{item.percentage}%</span>
+                <span className="text-xs font-bold text-indigo-600">{item.percentage}%</span>
               </div>
-              <p className="text-[11px] font-mono text-slate-400">
+              <p className="text-[11px] font-mono text-slate-500">
                 {formatMoney(item.convertedSmallest, homeCurrency)}
               </p>
             </div>

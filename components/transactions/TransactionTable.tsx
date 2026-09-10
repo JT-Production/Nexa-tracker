@@ -97,32 +97,32 @@ export function TransactionTable() {
       {/* Top action header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Financial Ledger</h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Unified multi-currency transaction log with instant normalized conversions
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Transactions</h2>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Normalized ledger with real-time conversion in {homeCurrency}
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs font-semibold text-slate-300 hover:text-white transition-all shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors shadow-2xs cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5 text-slate-400" />
+            <Download className="w-3.5 h-3.5 text-slate-500" />
             <span>Export CSV</span>
           </button>
           <button
             onClick={() => setIsAddTxModalOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-2xs transition-colors active:scale-95 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>Record Transaction</span>
+            <span>Record transaction</span>
           </button>
         </div>
       </div>
 
       {/* Filter toolbar */}
-      <div className="p-4 rounded-2xl glass-card border border-slate-800 space-y-3">
+      <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search */}
           <div className="relative">
@@ -131,8 +131,8 @@ export function TransactionTable() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search description, merchant, client..."
-              className="w-full bg-slate-950/70 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+              placeholder="Search description, merchant, account..."
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-slate-400 focus:bg-white"
             />
           </div>
 
@@ -141,11 +141,11 @@ export function TransactionTable() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-400 cursor-pointer"
             >
-              <option value="all">All Categories</option>
+              <option value="all">All categories</option>
               {categories.map((c) => (
-                <option key={c} value={c} className="bg-slate-900">
+                <option key={c} value={c} className="bg-white text-slate-900">
                   {c}
                 </option>
               ))}
@@ -157,11 +157,11 @@ export function TransactionTable() {
             <select
               value={selectedCurrency}
               onChange={(e) => setSelectedCurrency(e.target.value)}
-              className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-400 cursor-pointer"
             >
-              <option value="all">All Denominations</option>
+              <option value="all">All currencies</option>
               {currencies.map((curr) => (
-                <option key={curr} value={curr} className="bg-slate-900">
+                <option key={curr} value={curr} className="bg-white text-slate-900">
                   {curr}
                 </option>
               ))}
@@ -173,14 +173,14 @@ export function TransactionTable() {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-slate-400 cursor-pointer"
             >
-              <option value="all">All Flows (In & Out)</option>
-              <option value="income" className="bg-slate-900">
-                Income / Inflows Only
+              <option value="all">All flows (in & out)</option>
+              <option value="income" className="bg-white text-slate-900">
+                Income only
               </option>
-              <option value="expense" className="bg-slate-900">
-                Expenses / Outflows Only
+              <option value="expense" className="bg-white text-slate-900">
+                Expenses only
               </option>
             </select>
           </div>
@@ -188,21 +188,21 @@ export function TransactionTable() {
       </div>
 
       {/* Ledger Table */}
-      <div className="rounded-2xl glass-card border border-slate-800 overflow-hidden shadow-2xl">
+      <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-2xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+          <table className="w-full min-w-[720px] text-left text-xs">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[11px] font-semibold">
               <tr>
-                <th className="py-3.5 px-4">Transaction / Memo</th>
-                <th className="py-3.5 px-4">Category</th>
-                <th className="py-3.5 px-4">Account</th>
-                <th className="py-3.5 px-4">Date</th>
-                <th className="py-3.5 px-4 text-right">Native Amount</th>
-                <th className="py-3.5 px-4 text-right">In {homeCurrency} (Spot)</th>
-                <th className="py-3.5 px-4 text-center">Actions</th>
+                <th className="py-3 px-4">Transaction</th>
+                <th className="py-3 px-4">Category</th>
+                <th className="py-3 px-4">Account</th>
+                <th className="py-3 px-4">Date</th>
+                <th className="py-3 px-4 text-right">Amount</th>
+                <th className="py-3 px-4 text-right">In {homeCurrency}</th>
+                <th className="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 font-medium text-slate-300">
+            <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
               {filtered.map((tx) => {
                 const isIncome = tx.type === 'income';
                 const converted = convertCurrencySmallestUnit(
@@ -213,14 +213,14 @@ export function TransactionTable() {
                 );
 
                 return (
-                  <tr key={tx.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={tx.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
                         <div
                           className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 border ${
                             isIncome
-                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                              : 'bg-slate-800 text-slate-400 border-slate-700'
+                              ? 'bg-emerald-50 text-emerald-600 border-emerald-200'
+                              : 'bg-slate-100 text-slate-600 border-slate-200'
                           }`}
                         >
                           {isIncome ? (
@@ -230,23 +230,23 @@ export function TransactionTable() {
                           )}
                         </div>
                         <div>
-                          <p className="font-semibold text-white">{tx.description}</p>
+                          <p className="font-semibold text-slate-900">{tx.description}</p>
                           <p className="text-[11px] text-slate-500">{tx.merchant || 'General'}</p>
                         </div>
                       </div>
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-300 text-[11px]">
+                      <span className="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 text-slate-700 text-[11px]">
                         {tx.category}
                       </span>
                     </td>
 
-                    <td className="py-3.5 px-4 text-slate-400">
+                    <td className="py-3.5 px-4 text-slate-600">
                       <span>{tx.accountName || 'Primary'}</span>
                     </td>
 
-                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500">
                       {new Date(tx.date).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
@@ -255,20 +255,20 @@ export function TransactionTable() {
                     </td>
 
                     <td className="py-3.5 px-4 text-right font-mono font-bold">
-                      <span className={isIncome ? 'text-emerald-400' : 'text-slate-100'}>
+                      <span className={isIncome ? 'text-emerald-600' : 'text-slate-900'}>
                         {isIncome ? '+' : '-'}
                         {formatMoney(tx.amountSmallestUnit, tx.currency)}
                       </span>
                     </td>
 
-                    <td className="py-3.5 px-4 text-right font-mono text-slate-400">
+                    <td className="py-3.5 px-4 text-right font-mono text-slate-500">
                       {formatMoney(converted, homeCurrency)}
                     </td>
 
                     <td className="py-3.5 px-4 text-center">
                       <button
                         onClick={() => deleteTransaction(tx.id)}
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                         title="Delete transaction"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -280,7 +280,7 @@ export function TransactionTable() {
 
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-500 text-xs">
+                  <td colSpan={7} className="py-12 text-center text-slate-400 text-xs">
                     No transactions match your search and filter criteria.
                   </td>
                 </tr>

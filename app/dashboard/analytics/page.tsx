@@ -10,8 +10,8 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       <div>
-        <h2 className="text-xl font-bold text-white tracking-tight">Analytics & FX Intelligence</h2>
-        <p className="text-xs text-slate-400 mt-1">
+        <h2 className="text-xl font-bold text-slate-900 tracking-tight">Analytics & FX Intelligence</h2>
+        <p className="text-xs text-slate-500 mt-1">
           Deep breakdown of your cash inflows, expenditure categories, and multi-currency portfolio exposure
         </p>
       </div>

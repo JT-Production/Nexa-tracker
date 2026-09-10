@@ -30,61 +30,56 @@ export function CashFlowChart() {
   const symbol = CURRENCY_METADATA[homeCurrency]?.symbol || '$';
 
   return (
-    <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4 flex flex-col justify-between">
+    <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4 flex flex-col justify-between">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold text-white tracking-tight">Cash Flow Dynamics</h3>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/20">
-              Inflow vs Outflow ({homeCurrency})
-            </span>
-          </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Normalized monthly cash movement across all currency accounts
+          <h3 className="text-sm font-bold text-slate-900 tracking-tight">Cash Flow Dynamics</h3>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Normalized monthly cash movement in {homeCurrency}
           </p>
         </div>
 
-        {/* Legend pills */}
-        <div className="flex items-center gap-3 text-xs">
+        {/* Legend */}
+        <div className="flex items-center gap-4 text-xs">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-300">Income</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-600" />
+            <span className="text-slate-600 font-medium">Income</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-            <span className="text-slate-300">Expenses</span>
+            <span className="w-2 h-2 rounded-full bg-rose-600" />
+            <span className="text-slate-600 font-medium">Expenses</span>
           </div>
         </div>
       </div>
 
       {/* Recharts Area Chart */}
-      <div className="h-64 w-full">
+      <div className="h-56 sm:h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={CASH_FLOW_MOCK} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
             <defs>
               <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10B981" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#10B981" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#059669" stopOpacity={0.15} />
+                <stop offset="95%" stopColor="#059669" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="expenseGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.25} />
-                <stop offset="95%" stopColor="#F43F5E" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#E11D48" stopOpacity={0.12} />
+                <stop offset="95%" stopColor="#E11D48" stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
             <XAxis
               dataKey="month"
               stroke="#64748B"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: '#1E293B' }}
+              axisLine={{ stroke: '#E2E8F0' }}
             />
             <YAxis
               stroke="#64748B"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: '#1E293B' }}
+              axisLine={{ stroke: '#E2E8F0' }}
               tickFormatter={(v) => `${symbol}${v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v}`}
             />
             <Tooltip
@@ -94,24 +89,24 @@ export function CashFlowChart() {
                   const exp = payload[1]?.value as number;
                   const net = inc - exp;
                   return (
-                    <div className="p-3 bg-slate-900 border border-slate-700/80 rounded-xl text-xs shadow-2xl space-y-1.5 min-w-[150px]">
-                      <p className="font-bold text-white border-b border-slate-800 pb-1">{label}</p>
-                      <div className="flex justify-between items-center text-emerald-400">
+                    <div className="p-3 bg-white border border-slate-200 rounded-xl text-xs shadow-lg space-y-1.5 min-w-[150px]">
+                      <p className="font-semibold text-slate-900 border-b border-slate-100 pb-1">{label}</p>
+                      <div className="flex justify-between items-center text-emerald-700">
                         <span>Inflow:</span>
-                        <span className="font-mono font-bold">
+                        <span className="font-mono font-semibold">
                           {symbol}
                           {inc?.toLocaleString()}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center text-rose-400">
+                      <div className="flex justify-between items-center text-rose-700">
                         <span>Outflow:</span>
-                        <span className="font-mono font-bold">
+                        <span className="font-mono font-semibold">
                           {symbol}
                           {exp?.toLocaleString()}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center text-indigo-300 pt-1 border-t border-slate-800 font-semibold">
-                        <span>Net Profit:</span>
+                      <div className="flex justify-between items-center text-slate-900 pt-1 border-t border-slate-100 font-semibold">
+                        <span>Net:</span>
                         <span className="font-mono">
                           {symbol}
                           {net?.toLocaleString()}
@@ -126,16 +121,16 @@ export function CashFlowChart() {
             <Area
               type="monotone"
               dataKey="income"
-              stroke="#10B981"
-              strokeWidth={2.5}
+              stroke="#059669"
+              strokeWidth={2}
               fillOpacity={1}
               fill="url(#incomeGrad)"
             />
             <Area
               type="monotone"
               dataKey="expense"
-              stroke="#F43F5E"
-              strokeWidth={2}
+              stroke="#E11D48"
+              strokeWidth={1.5}
               fillOpacity={1}
               fill="url(#expenseGrad)"
             />

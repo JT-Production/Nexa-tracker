@@ -59,31 +59,31 @@ export function NetWorthGrowthChart() {
   }));
 
   return (
-    <div className="p-6 rounded-2xl glass-card border border-slate-800 space-y-4">
+    <div className="p-6 rounded-2xl bg-white border border-black/10 shadow-xs space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">
+          <div className="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200">
             <TrendingUp className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white tracking-tight">
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight">
               Net Worth Trajectory ({homeCurrency})
             </h3>
-            <p className="text-xs text-slate-400">Historical equity converted at spot rates</p>
+            <p className="text-xs text-slate-500">Historical equity converted at spot rates</p>
           </div>
         </div>
 
         {/* Timeframe selector pills */}
-        <div className="flex bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs">
+        <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
           {(['1M', '3M', '1Y', 'ALL'] as const).map((range) => (
             <button
               key={range}
               onClick={() => setActiveRange(range)}
-              className={`px-3 py-1 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-1 rounded-lg font-semibold transition-all cursor-pointer ${
                 activeRange === range
-                  ? 'bg-indigo-600 text-white shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900 shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               {range}
@@ -98,23 +98,23 @@ export function NetWorthGrowthChart() {
           <AreaChart data={normalizedData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
             <defs>
               <linearGradient id="netWorthGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366F1" stopOpacity={0.4} />
+                <stop offset="5%" stopColor="#6366F1" stopOpacity={0.25} />
                 <stop offset="95%" stopColor="#6366F1" stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
             <XAxis
               dataKey="date"
               stroke="#64748B"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: '#1E293B' }}
+              axisLine={{ stroke: '#E2E8F0' }}
             />
             <YAxis
               stroke="#64748B"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: '#1E293B' }}
+              axisLine={{ stroke: '#E2E8F0' }}
               tickFormatter={(v) => `${symbol}${v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v}`}
             />
             <Tooltip
@@ -122,9 +122,9 @@ export function NetWorthGrowthChart() {
                 if (active && payload && payload.length) {
                   const val = payload[0]?.value as number;
                   return (
-                    <div className="p-3 bg-slate-900 border border-slate-700 rounded-xl text-xs shadow-2xl text-white">
-                      <p className="text-slate-400 font-medium">{label}</p>
-                      <p className="text-emerald-400 font-mono font-bold text-sm mt-0.5">
+                    <div className="p-3 bg-white border border-slate-200 rounded-xl text-xs shadow-xl text-slate-900">
+                      <p className="text-slate-500 font-medium">{label}</p>
+                      <p className="text-emerald-600 font-mono font-bold text-sm mt-0.5">
                         {symbol}
                         {val?.toLocaleString()} {homeCurrency}
                       </p>
