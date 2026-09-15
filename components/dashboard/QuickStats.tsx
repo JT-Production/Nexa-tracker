@@ -25,7 +25,7 @@ export function QuickStats() {
     {
       title: "Monthly Cash Inflow",
       value: formatMoney(totalIncomeSmallestUnit, homeCurrency),
-      change: "+18.5%",
+      change: "+18.9%",
       changeType: "positive" as const,
       subtext: "Client retainers & payouts",
     },
